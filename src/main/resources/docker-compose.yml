@@ -1,0 +1,24 @@
+version: '3.4'
+services:
+  mysql:
+    hostname: mysql
+    image: 'mysql'
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: Lisbon2021
+      MYSQL_DATABASE: airport
+  service:
+    image: backend-airport
+    restart: always
+    ports:
+      - "8086:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/airport
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Lisbon2021
+    depends_on:
+      - mysql
+#        condition: service_started
